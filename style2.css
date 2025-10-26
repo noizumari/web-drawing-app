@@ -1,0 +1,166 @@
+/* --- 1. Global Settings & Design Tokens --- */
+/*
+ * ここはアプリのデザインの「設計図」です。
+ * 色や角の丸みなどを変数として定義しています。
+ * ここの値を変更するだけで、アプリ全体の印象を簡単に変えられます。
+*/
+:root {
+    --base-color: #f0f2f5;      /* 背景色 (机の色) */
+    --main-color: #ffffff;      /* メインコンテンツの色 (紙の色) */
+    --accent-color: #007aff;    /* 強調色 (選択中のツールなど) */
+    --text-color: #333333;      /* 基本の文字やアイコンの色 */
+    --border-color: #d1d5da;    /* 境界線の色 */
+    --border-radius: 6px;       /* 全ての角の丸み */
+}
+
+/* マテリアルアイコンを読み込むための設定 */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: var(--base-color); /* ベースカラーを適用 */
+    color: var(--text-color);
+    overflow: hidden; /* スクロールバーを常に非表示 */
+}
+
+
+/* --- 2. Main Layout Structure --- */
+
+.app-container {
+    display: flex;
+    flex-direction: column; /* 子要素 (ツールバーとキャンバスエリア) を縦に並べる */
+    height: 100vh;
+}
+
+.toolbar {
+    background-color: var(--main-color);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    padding: 12px 28px;
+    display: flex;
+    overflow: scroll; /* ツールバーがはみ出た場合にスクロール */
+    justify-content: space-between; /* 子要素 (3つのグループ) を左・中央・右に配置 */
+    align-items: center;
+    gap: 32px;
+    box-sizing: border-box;
+    flex-shrink: 0; /* ツールバーが縮まないように */
+}
+
+.tool-button.disabled{
+    opacity: 0.4;
+    cursor: not-allowed;
+    background-color: transparent !important;
+}
+
+/*ラベルの見た目*/
+.tool-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 44px; /* ラベルが潰れないように最小幅を設定 */
+}
+
+/*ラベルの見た目*/
+.tool-label{
+    font-size: 12px;
+    color: #666;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+/* フローティング・キャンバスのためのコンテナ */
+.canvas-container {
+    flex-grow: 1; /* 残りの高さをすべて使用 */
+    padding: 32px; /* キャンバスの周りの余白 */
+    display: flex;
+    justify-content: center; /* キャンバスを水平中央に */
+    align-items: center; /* キャンバスを垂直方向は中央揃えに */
+    box-sizing: border-box;
+    overflow: auto; /* キャンバスがはみ出た場合にスクロール */
+}
+
+#drawing-canvas {
+    background-color: var(--main-color);
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 浮いているように見せる影 */
+    border-radius: var(--border-radius);
+    cursor: crosshair; /* 十字カーソルに変更 */
+    padding: 0;
+    /* widthとheightはJavaScriptで設定します */
+}
+
+
+/* --- 3. Toolbar Components --- */
+/*
+ * ここではツールバーの中の部品（ボタン、ドロップダウンなど）の
+ * 見た目を統一し、整えています。
+*/
+
+/* 各グループのスタイル */
+.tool-group, .property-group, .action-group {
+    display: flex;
+    align-items: center;
+    gap: 24px; /* グループ内のボタンの間隔 */
+    flex: 1px; /* 均等にスペースを取る */
+    justify-content: center; /* グループ内の要素を中央揃え */
+}
+
+
+/* ツールボタンの共通スタイル */
+.tool-button, .tool-property {
+    height: 36px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.5s ease-out; /* 滑らかなアニメーション */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    padding: 0 8px;
+}
+
+/* アイコンだけのボタンを正方形にする */
+.tool-button {
+    width: 36px;
+    padding: 0;
+}
+
+/* マウスが乗った時の共通スタイル */
+.tool-button:hover, .tool-property:hover {
+    background-color: #e9ecef;
+}
+
+/* 選択中のツールボタンのスタイル */
+.tool-button.active {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* "線の太さ" というラベル文字のスタイル */
+.tool-group p {
+    font-size: 14px;
+    margin: 0 8px 0 0;
+    color: #555;
+}
+
+/* ドロップダウンのスタイル */
+#line-width-select {
+    font-size: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+/* 色表示ボタンのスタイル */
+.color-display {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border-color);
+    background-color: #000000;
+    border-radius: 4px; /* 少しだけ角を丸める */
+}

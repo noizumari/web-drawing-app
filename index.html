@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>図形、絵作成アプリ</title>
+        <!--google material icons 読み込みのためのリンク-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=ink_eraser,pen_size_2" rel="stylesheet">
+        <link rel="stylesheet" href="style2.css">
+    </head>
+    <body>
+        <div class="app-container"><!--ツールバーのアイテム-->
+            <div class="toolbar">
+                <div class="action-group"><!--ファイル操作やcanvas全体編集-->
+                    <div class="tool-item"> 
+                        <button id="undo-button" class="tool-button" title="元に戻す"><span class="material-icons">undo</span></button>
+                        <span class="tool-label">元に戻す</span>
+                    </div>
+                    <div class="tool-item">
+                        <button id="redo-button" class="tool-button" title="やり直す"><span class="material-icons">redo</span></button>
+                        <span class="tool-label">やり直す</span>
+                    </div>
+                    <div class="tool-item">
+                        <button id="clear-button" class="tool-button" title="クリア"><span class="material-icons">delete</span></button>
+                        <span class="tool-label">クリア</span>
+                    </div>
+                    <div class="tool-item">
+                        <button id="save-button" class="tool-button" title="保存"><span class="material-icons">save</span></button>
+                        <span class="tool-label">保存</span>
+                    </div>
+                </div>
+                <div class="tool-group"><!--描画ツール-->
+                    <div class="tool-item">
+                        <button id="pen-tool" class="tool-button active" title="ペン"><span class="material-icons">edit</span></button>
+                        <span class="tool-label">ペン</span>
+                    </div>
+                    <div class="tool-item">
+                        <button id="eraser-tool" class="tool-button" title="消しゴム">
+                            <span class="material-symbols-outlined">ink_eraser</span>
+                        </button>
+                        <span class="tool-label">消しゴム</span>
+                    </div>
+                    <div class="tool-item">
+                        <select id="line-width-select" class="tool-property">
+                            <option value="2">細</option>
+                            <option value="5" selected>普通</option>
+                            <option value="10">太</option>
+                        </select>
+                        <span class="tool-label">太さ</span>
+                    </div>
+                    <div class="tool-item">
+                        <button id="color-picker-button" class="tool-property color-display" title="色を選択"></button>
+                        <span class="tool-label">色</span>
+                        <input type="color" id="color-picker" style="display: none">
+                    </div>
+                </div>
+                <div class="property-group"><!--図形やテキスト-->
+                    <div class="tool-item">
+                        <button id="rect-tool" class="tool-button" title="四角形"><span class="material-icons">check_box_outline_blank</span></button>
+                        <span class="tool-label">四角</span>
+                    </div>
+                    <div class="tool-item">
+                        <button id="circle-tool" class="tool-button" title="円"><span class="material-icons">radio_button_unchecked</span></button>
+                        <span class="tool-label">円</span>
+                    </div>
+                    <div class="tool-item">
+                        <button id="arrow-tool" class="tool-button" title="矢印"><span class="material-icons">north_east</span></button>
+                        <span class="tool-label">矢印</span>
+                    </div>
+                    <div class = "tool-item">
+                        <button id = "line-tool" class = "tool-button" title = "直線">
+                            <span class = "material-symbols-outlined">pen_size_2</span>
+                        </button>
+                        <span class = "tool-label">直線</span>
+                    </div>
+                    <div class="tool-item">
+                        <button id="text-tool" class="tool-button" title="テキスト"><span class="material-icons">title</span></button>
+                        <span class="tool-label">テキスト</span>
+                    </div>
+
+                </div>
+            </div>
+            <!--キャンバスエリア-->
+            <div class="canvas-container">
+                <canvas id="drawing-canvas"></canvas>
+            </div>
+        </div>
+        <script src="script2.js"></script>
+    </body>
+</html>
